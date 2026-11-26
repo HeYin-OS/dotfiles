@@ -1,0 +1,163 @@
+"$schema" = 'https://starship.rs/config-schema.json'
+
+add_newline = true
+command_timeout = 1500
+
+format = """
+$username\
+$hostname\
+$directory\
+$git_branch\
+$git_status\
+$python\
+${custom.uv}\
+$nodejs\
+$rust\
+$c\
+$cpp\
+$cmake\
+$cmd_duration\
+$jobs\
+$status
+$character"""
+
+# ------------------------------------------------------------
+# 用户和主机
+# ------------------------------------------------------------
+
+[username]
+show_always = true
+style_user = "bold #89B4FA"
+style_root = "bold #F38BA8"
+format = "[$user]($style)"
+
+[hostname]
+ssh_only = false
+trim_at = "."
+style = "bold #94E2D5"
+format = "[@$hostname]($style) "
+
+# ------------------------------------------------------------
+# 当前目录
+# ------------------------------------------------------------
+
+[directory]
+style = "bold #CDD6F4"
+format = "[󰉋 $path]($style)[$read_only]($read_only_style) "
+truncation_length = 4
+truncate_to_repo = false
+home_symbol = "~"
+read_only = " 󰌾"
+read_only_style = "bold #F38BA8"
+
+[directory.substitutions]
+"Documents" = "󰈙 Documents"
+"Downloads" = " Downloads"
+"Music" = "󰝚 Music"
+"Pictures" = " Pictures"
+"Projects" = "󰲋 Projects"
+"Developer" = "󰲋 Developer"
+"src" = "󰅩 src"
+
+# ------------------------------------------------------------
+# Git
+# ------------------------------------------------------------
+
+[git_branch]
+symbol = " "
+style = "bold #CBA6F7"
+format = "on [$symbol$branch(:$remote_branch)]($style) "
+
+[git_status]
+style = "bold #FAB387"
+format = "([$all_status$ahead_behind]($style) )"
+conflicted = "=${count} "
+ahead = "⇡${count} "
+behind = "⇣${count} "
+diverged = "⇕⇡${ahead_count}⇣${behind_count} "
+untracked = "?${count} "
+stashed = "󰏗 ${count} "
+modified = "!${count} "
+staged = "+${count} "
+renamed = "»${count} "
+deleted = "✘${count} "
+
+# ------------------------------------------------------------
+# 开发环境
+# ------------------------------------------------------------
+
+[python]
+symbol = "  "
+style = "bold #F9E2AF"
+format = "[$symbol$version( \\($virtualenv\\))]($style) "
+detect_files = ["pyproject.toml", "uv.lock", ".python-version"]
+
+[custom.uv]
+when = 'command -v uv >/dev/null 2>&1 && test -f uv.lock'
+symbol = "▣ "
+style = "bold #89DCEB"
+format = "[$symbol uv]($style) "
+
+[nodejs]
+symbol = " "
+style = "bold #A6E3A1"
+format = "via [$symbol($version )]($style) "
+
+[rust]
+symbol = " "
+style = "bold #FAB387"
+format = "via [$symbol($version )]($style) "
+
+[c]
+symbol = " "
+style = "bold #89DCEB"
+format = "via [$symbol$name $version]($style) "
+detect_extensions = ["c", "h"]
+
+[cpp]
+disabled = false
+symbol = " "
+style = "bold #89B4FA"
+format = "via [$symbol$name $version]($style) "
+detect_extensions = ["cpp", "cc", "cxx", "c++", "hpp", "hh", "hxx", "h++", "tcc"]
+detect_files = ["CMakeLists.txt", "compile_commands.json", "meson.build"]
+
+[cmake]
+symbol = " "
+style = "bold #74C7EC"
+format = "[$symbol$version]($style) "
+
+# ------------------------------------------------------------
+# 命令状态
+# ------------------------------------------------------------
+
+[cmd_duration]
+min_time = 500
+show_milliseconds = false
+style = "bold #F9E2AF"
+format = "took [󰔛 $duration]($style) "
+
+[jobs]
+symbol = "󰜎 "
+style = "bold #89B4FA"
+format = "[$symbol$number]($style) "
+
+[status]
+disabled = false
+symbol = "✘"
+success_symbol = ""
+not_executable_symbol = "󰂭"
+not_found_symbol = "󰍉"
+sigint_symbol = "󰚌"
+signal_symbol = "󱐋"
+style = "bold #F38BA8"
+format = "[$symbol$status]($style) "
+
+# ------------------------------------------------------------
+# 输入箭头
+# ------------------------------------------------------------
+
+[character]
+success_symbol = "[❯](bold green) "
+error_symbol = "[❯](bold red) "
+vimcmd_symbol = "[❮](bold blue) "
