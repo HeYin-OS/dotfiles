@@ -1,2 +1,5 @@
 # powershell本机专属配置
 *.local.psd1
+
+# zsh本机专属配置
+/zsh/config/local.zsh
