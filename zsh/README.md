@@ -18,7 +18,6 @@ bash scripts/bootstrap.sh
 | --- | --- |
 | `install-cli-tools.sh` | 安装 Zsh、Starship、Fastfetch、Zoxide、eza、bat等CLI工具 |
 | `install-zsh-plugins.sh` | 安装 zsh插件 |
-| `link-configs.sh` | 备份已有配置并建立配置文件软链接 |
 
 安装需要 Git、curl、Python 3 等基础工具。Zsh 源码编译还需要 C 编译器、make 和 ncurses 开发库。
 
@@ -29,26 +28,6 @@ bash scripts/bootstrap.sh
 ```text
 $HOME/.local/bin/                      # Zsh 与 CLI 工具
 $HOME/.local/share/zsh/plugins/        # Zsh 插件
-```
-
-部署时自动建立下列软链接（`XDG_CONFIG_HOME` 未设置时默认为 `~/.config`）：
-
-```text
-~/.zshrc                      -> dotfiles/zsh/.zshrc
-~/.config/starship.toml         -> dotfiles/starship/starship.toml
-~/.config/fastfetch/config.jsonc -> dotfiles/fastfetch/config.jsonc
-```
-
-检查当前 `.zshrc` 指向：
-
-```bash
-readlink -f "$HOME/.zshrc"
-```
-
-单独链接 Zsh 配置，可在仓库根目录执行（目标不存在时才成功，不覆盖原文件）：
-
-```bash
-ln -s "$(pwd -P)/zsh/.zshrc" "$HOME/.zshrc"
 ```
 
 ## 3. 手动启动 Zsh
