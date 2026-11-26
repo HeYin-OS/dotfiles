@@ -81,24 +81,14 @@ CUDA 脚本会按需初始化 MSVC。`-NoProfile` 避免重复加载默认 Profi
 
 测试：MSVC 终端运行 `cl`，CUDA 终端运行 `nvcc --version`。
 
-## 5. 与powershell有关的文件结构
+## 5. 与PowerShell有关的文件结构
 
 ```text
 dotfiles/
-├── powershell/
-│   ├── README.md
-│   ├── profile.ps1
-│   ├── config/
-│   │   ├── toolchain.example.psd1
-│   │   └── toolchain.local.psd1   # 本机配置，不提交
-│   └── environments/
-│       ├── msvc-dev.ps1
-│       └── cuda-dev.ps1
-├── oh-my-posh/
-│   └── default.json
-└── scripts/
-    ├── install.ps1
-    └── configure.ps1
+├── powershell/     # .ps1 脚本
+├── oh-my-posh/     # PS prompt 主题配置文件
+├── fastfetch/      # fastfetch 配置文件
+└── scripts/        # .ps1 安装与部署脚本
 ```
 
 仓库根目录 `.gitignore` 包含：

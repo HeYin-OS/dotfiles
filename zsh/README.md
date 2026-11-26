@@ -72,16 +72,23 @@ ZDOTDIR="$HOME/dotfiles/zsh" "$HOME/.local/bin/zsh" -i
 在 Bash 中加入 `~/.bashrc`。不需要另外创建 `.sh` 文件。
 
 ```bash
-# Launch user-local Zsh on demand; keep Bash as the parent shell.
+# Launch Zsh with standalone dotfiles configuration.
 start_zsh() {
     local zsh_bin="$HOME/.local/bin/zsh"
+    local zsh_config="$HOME/dotfiles/zsh"
 
     if [[ ! -x "$zsh_bin" ]]; then
-        printf '[ERROR] Zsh not installed: %s\n' "$zsh_bin" >&2
+        printf '[ERROR] Zsh is not installed.\n' >&2
         return 1
     fi
 
-    ZDOTDIR="$HOME" "$zsh_bin" -i "$@"
+    if [[ ! -r "$zsh_config/.zshrc" ]]; then
+        printf '[ERROR] Configuration not found: %s\n' \
+            "$zsh_config/.zshrc" >&2
+        return 1
+    fi
+
+    ZDOTDIR="$zsh_config" "$zsh_bin" -i "$@"
 }
 ```
 
@@ -95,4 +102,14 @@ source "$HOME/.bashrc"
 
 ```bash
 start_zsh
+```
+
+## 5. 与Zsh有关的文件结构
+
+```text
+dotfiles/
+├── zsh/        # .zshrc 与 .zsh 脚本
+├── starship/   # Zsh prompt 主题配置文件
+├── fastgetch/  # fastfetch 配置文件
+└── scripts/    # .sh 安装与部署脚本
 ```
