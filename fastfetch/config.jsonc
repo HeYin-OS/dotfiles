@@ -44,8 +44,7 @@
         {
             "type": "gpu",
             "key": "GPU",
-            "hideType": "integrated",
-            "format": "{name} ({dedicated-total})"
+            "hideType": "integrated"
         },
         {
             "type": "memory",
